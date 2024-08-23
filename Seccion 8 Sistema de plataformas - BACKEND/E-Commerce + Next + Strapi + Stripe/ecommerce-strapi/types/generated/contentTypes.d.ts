@@ -367,7 +367,7 @@ export interface ApiAddressAddress extends Schema.CollectionType {
   info: {
     singularName: 'address';
     pluralName: 'addresses';
-    displayName: 'address';
+    displayName: 'Address';
     description: '';
   };
   options: {
@@ -396,6 +396,39 @@ export interface ApiAddressAddress extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::address.address',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlatformPlatform extends Schema.CollectionType {
+  collectionName: 'platforms';
+  info: {
+    singularName: 'platform';
+    pluralName: 'platforms';
+    displayName: 'Platform';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    slug: Attribute.UID<'api::platform.platform', 'title'> & Attribute.Required;
+    order: Attribute.Integer & Attribute.Required;
+    icon: Attribute.Media<'images'> & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::platform.platform',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::platform.platform',
       'oneToOne',
       'admin::user'
     > &
@@ -841,6 +874,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::address.address': ApiAddressAddress;
+      'api::platform.platform': ApiPlatformPlatform;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;
       'plugin::content-releases.release': PluginContentReleasesRelease;

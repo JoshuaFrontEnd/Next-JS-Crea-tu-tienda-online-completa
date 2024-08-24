@@ -403,6 +403,42 @@ export interface ApiAddressAddress extends Schema.CollectionType {
   };
 }
 
+export interface ApiGameGame extends Schema.CollectionType {
+  collectionName: 'games';
+  info: {
+    singularName: 'game';
+    pluralName: 'games';
+    displayName: 'Game';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    title: Attribute.String & Attribute.Required;
+    platform: Attribute.Relation<
+      'api::game.game',
+      'oneToOne',
+      'api::platform.platform'
+    >;
+    price: Attribute.Decimal & Attribute.Required;
+    discount: Attribute.Integer;
+    slug: Attribute.UID<'api::game.game', 'title'> & Attribute.Required;
+    summary: Attribute.Text & Attribute.Required;
+    video: Attribute.String & Attribute.Required;
+    cover: Attribute.Media<'images'> & Attribute.Required;
+    wallpaper: Attribute.Media<'images'> & Attribute.Required;
+    screenshots: Attribute.Media<'images', true> & Attribute.Required;
+    releaseDate: Attribute.Date & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::game.game', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::game.game', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
 export interface ApiPlatformPlatform extends Schema.CollectionType {
   collectionName: 'platforms';
   info: {
@@ -874,6 +910,7 @@ declare module '@strapi/types' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'api::address.address': ApiAddressAddress;
+      'api::game.game': ApiGameGame;
       'api::platform.platform': ApiPlatformPlatform;
       'plugin::upload.file': PluginUploadFile;
       'plugin::upload.folder': PluginUploadFolder;

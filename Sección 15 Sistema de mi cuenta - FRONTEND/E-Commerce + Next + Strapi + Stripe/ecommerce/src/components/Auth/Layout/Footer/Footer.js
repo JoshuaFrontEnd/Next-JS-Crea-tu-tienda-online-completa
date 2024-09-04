@@ -33,7 +33,7 @@ export function Footer() {
         </div>
 
         <div className={styles.copyright}>
-          <span>Copyright © 2023 Gaming - All rights reserved</span>
+          <span>Copyright © { new Date().getFullYear() } Gaming - All rights reserved</span>
         </div>
 
       </Container>

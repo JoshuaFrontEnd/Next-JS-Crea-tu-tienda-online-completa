@@ -1,0 +1,12 @@
+.content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  > div {
+    flex: 1;
+    margin: 0 !important;
+    &:last-child {
+      flex: 0;
+    }
+  }
+}
